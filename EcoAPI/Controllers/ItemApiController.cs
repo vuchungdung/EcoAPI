@@ -20,7 +20,7 @@ namespace EcoAPI.Controllers
         }
 
         [HttpPost]
-        [Route("item/create")]
+        [Route("create")]
         public IActionResult Create([FromBody]ItemModel model)
         {
             string msgError = "";
@@ -44,7 +44,7 @@ namespace EcoAPI.Controllers
             }
         }
         [HttpGet]
-        [Route("item/item")]
+        [Route("item/{id}")]
         public IActionResult Item(string id)
         {
             string msgError = "";
@@ -62,7 +62,7 @@ namespace EcoAPI.Controllers
             }
         }
         [HttpGet]
-        [Route("item/list")]
+        [Route("list")]
         public IActionResult List()
         {
             string msgError = "";
@@ -79,7 +79,7 @@ namespace EcoAPI.Controllers
             }
         }
         [HttpGet]
-        [Route("item/search")]
+        [Route("search")]
         public IActionResult Search(int pageIndex, int pageSize, out long total, string item_group_id)
         {
             string msgError = "";

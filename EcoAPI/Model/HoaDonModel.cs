@@ -5,7 +5,7 @@ namespace Model
 {
     public class HoaDonModel
     {
-        public string ma_hoa_don { get; set; }
+        public string ma_hoa_don { get; set; } = Guid.NewGuid().ToString();
         public string ho_ten { get; set; }
         public string dia_chi { get; set; }
         public List<ChiTietHoaDonModel> listjson_chitiet { get; set; }

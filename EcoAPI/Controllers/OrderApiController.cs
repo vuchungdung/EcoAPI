@@ -19,7 +19,7 @@ namespace EcoAPI.Controllers
             _db = db;
         }
         [HttpPost]
-        [Route("order/create")]
+        [Route("create")]
         public IActionResult Create(HoaDonModel model)
         {
             string msgError = "";
@@ -42,7 +42,7 @@ namespace EcoAPI.Controllers
             }
         }
         [HttpPut]
-        [Route("order/edit")]
+        [Route("edit")]
         public IActionResult Update(HoaDonModel model)
         {
             string msgError = "";
@@ -65,7 +65,7 @@ namespace EcoAPI.Controllers
             }
         }
         [HttpGet]
-        [Route("order/item/{id}")]
+        [Route("item/{id}")]
         public IActionResult GetDatabyID(string id)
         {
             string msgError = "";
@@ -83,7 +83,7 @@ namespace EcoAPI.Controllers
             }
         }
         [HttpGet]
-        [Route("order/delete/{id}")]
+        [Route("delete/{id}")]
         public IActionResult Delete(string id)
         {
             string msgError = "";
@@ -103,7 +103,7 @@ namespace EcoAPI.Controllers
             }
         }
         [HttpGet]
-        [Route("order/search")]
+        [Route("search")]
         public IActionResult Search(int pageIndex, int pageSize, out long total, string hoten, string diachi)
         {
             string msgError = "";

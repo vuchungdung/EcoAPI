@@ -20,7 +20,7 @@ namespace EcoAPI.Controllers
         }
 
         [HttpGet]
-        [Route("group/list")]
+        [Route("list")]
         public IActionResult List()
         {
             string msgError = "";
