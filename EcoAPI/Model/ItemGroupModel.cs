@@ -12,5 +12,7 @@ namespace Model
         public short? seq_num { get; set; }
         public List<ItemGroupModel> children { get; set; }
         public string type { get; set; }
+        public System.Int64 RecordCount { get; set; }
+
     }
 }

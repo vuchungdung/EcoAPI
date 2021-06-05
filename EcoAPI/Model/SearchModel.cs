@@ -10,5 +10,7 @@ namespace EcoAPI.Model
         public int pageIndex { get; set; }
         public int pageSize { get; set; }
         public string item_group_id { get; set; }
+        public string hoten { get; set; }
+        public string diachi { get; set; }
     }
 }

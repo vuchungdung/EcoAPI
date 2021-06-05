@@ -1,4 +1,5 @@
 ﻿using EcoAPI.Helper;
+using EcoAPI.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model;
@@ -102,23 +103,21 @@ namespace EcoAPI.Controllers
                 throw;
             }
         }
-        [HttpGet]
+        [HttpPost]
         [Route("search")]
-        public IActionResult Search(int pageIndex, int pageSize, out long total, string hoten, string diachi)
+        public IActionResult Search([FromBody]SearchModel model)
         {
             string msgError = "";
-            total = 0;
             try
             {
                 var dt = _db.ExecuteSProcedureReturnDataTable(out msgError, "sp_hoa_don_search",
-                    "@page_index", pageIndex,
-                    "@page_size", pageSize,
-                    "@hoten", hoten,
-                    "@diachi", diachi);
+                    "@page_index", model.pageIndex,
+                    "@page_size", model.pageSize,
+                    "@hoten", model.hoten,
+                    "@diachi", model.diachi);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
-                return Ok(dt.ConvertTo<HoaDonModel>().ToList());
+                return Ok(dt.ConvertTo<OrderResponseItem>().ToList());
             }
             catch
             {
