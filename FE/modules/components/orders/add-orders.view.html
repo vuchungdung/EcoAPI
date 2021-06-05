@@ -1,0 +1,164 @@
+<div class="content-wrapper">
+    <section class="container-fluid" style="padding-left: 0px;padding-right: 0px;">
+        <section class="content-header">
+            <h1>
+                QUẢN LÝ
+                <small>ĐƠN HÀNG</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Trang chính</a></li>
+                <li class="active">Đơn hàng</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Horizontal Form -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Thêm mới thông tin đơn hàng</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h3
+                                style="color: red;font-weight: 600;text-align: center;margin-top: 0px;margin-bottom:19px">
+                                DANH SÁCH THỰC ĐƠN</h3>
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Tên món ăn</th>
+                                        <th style="width:15%">Hình ảnh</th>
+                                        <th style="width:15%">Đơn giá</th>
+                                        <th style="width:8%">Chọn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="item in listItems_item|itemsPerPage:pageSize_item"
+                                        total-items="totalItems_item">
+                                        <td>{{item.item_name}}</td>
+                                        <td>
+                                            <img src="https://localhost:44374/{{item.item_image}}"
+                                                style="width:100px;height:80px" alt="no image">
+                                        </td>
+                                        <td style="font-weight: 600;color: red;">
+                                            {{item.item_price | currency:"(đồng) "}}</td>
+                                        <td>
+                                            <a data-toggle="modal" data-target="#modal-default"
+                                                ng-click="Item(item.item_id)"><i style="color: green;"
+                                                    class="fa fa-fw fa-cart-plus"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Tên món ăn</th>
+                                        <th style="width:15%">Hình ảnh</th>
+                                        <th style="width:15%">Đơn giá</th>
+                                        <th style="width:8%">Chọn</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div ng-if="listItems_item"
+                                style="padding-top: 10px; padding-bottom:10px; text-align:center">
+                                <dir-pagination-controls max-size="pageSize_item" direction-links="true"
+                                    boundary-links="true" on-page-change="loadItem(newPageNumber)">
+                                </dir-pagination-controls>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <h3 style="color: red;font-weight: 600;text-align: center;margin-top: 0px">THÔNG TIN KHÁCH
+                                HÀNG</h3>
+                            <form ng-submit="addOrder()">
+                                <!-- /.box-body -->
+                                <div class="form-group">
+                                    <label for="">Họ và tên khách hàng</label>
+                                    <input type="text" class="form-control" required name="ho_ten"
+                                        placeholder="Nhập họ và tên khách hàng" ng-model="ho_ten">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Địa chỉ nhận hàng</label>
+                                    <input type="text" class="form-control" name="dia_chi"
+                                        placeholder="Nhập địa chỉ nhận hàng" required
+                                        ng-model="dia_chi">
+                                </div>
+                                <div class="box-footer" style="padding-left: 0;padding-right: 0;">
+                                    <button ui-sref="list_product" class="btn btn-default">Hủy</button>
+                                    <button type="submit" class="btn btn-success pull-right">Lưu hóa đơn</button>
+                                    <button type="button" ng-click="ReLoad()" class="btn btn-danger">Làm mới</button>
+                                </div><!-- /.box-footer -->
+                            </form>
+                            <h3 style="color: red;font-weight: 600;text-align: center;margin-top: 0px">MÓN ĂN ĐẶT MUA</h3>
+                            <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Tên món ăn</th>
+                                        <th style="width:15%">Hình ảnh</th>
+                                        <th style="width:15%">Số lượng</th>
+                                        <th style="width:15%">Đơn giá</th>
+                                        <th style="width:15%">Tổng</th>
+                                        <th style="width:8%">Chọn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in listItemLocal">
+                                        <td>{{item.item_name}}</td>
+                                        <td>
+                                            <img src="https://localhost:44374/{{item.item_image}}"
+                                                style="width:100px;height:80px" alt="no image">
+                                        </td>
+                                        <td>{{item.so_luong}}</td>
+                                        <td style="font-weight: 600;color: red;">
+                                            {{item.item_price | currency:"(đồng) "}}</td>
+                                            <td style="font-weight: 600;color: red;">
+                                                {{item.total | currency:"(đồng) "}}</td>
+                                        <td>
+                                            <a ng-click="deleteLocal(item.item_id)"><i style="color: red;"
+                                                    class="fa fa-fw fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Tên món ăn</th>
+                                        <th style="width:15%">Hình ảnh</th>
+                                        <th style="width:15%">Số lượng</th>
+                                        <th style="width:15%">Đơn giá</th>
+                                        <th style="width:15%">Tổng</th>
+                                        <th style="width:8%">Chọn</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /.box -->
+        </section><!-- /.content -->
+    </section>
+</div>
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Chi tiết món ăn</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Số lượng món ăn</label>
+                    <input type="text" name="item_count" class="form-control" ng-model="item_count"
+                        placeholder="Nhập số lượng món ăn">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Hủy</button>
+                <button type="button" ng-click="addItem()" data-dismiss="modal" class="btn btn-primary">Thêm</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

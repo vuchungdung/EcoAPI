@@ -1,0 +1,45 @@
+<div class="content-wrapper">
+    <section class="container-fluid" style="padding-left: 0px;padding-right: 0px;">
+        <section class="content-header">
+            <h1>
+                QUẢN LÝ
+                <small>DANH MỤC</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Trang chính</a></li>
+                <li class="active">Danh mục</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Horizontal Form -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Thêm mới</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                    <form ng-submit="add()">
+                        <!-- /.box-body -->
+                        <div class="form-group">
+                            <label class="control-label">Tên danh mục</label>
+                            <input type="text" class="form-control" placeholder="Nhập tên danh mục" required name="item_group_name" ng-model="category.item_group_name">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Danh mục gốc</label>
+                            <select class="form-control" ng-model="category.parent_item_group_id" style="width: 100%;" ng-init="loadGroup()">
+                                <option value="">Chọn danh mục sản phẩm</option>
+                                <option ng-repeat="a in listGroup" value="{{a.item_group_id}}">{{a.item_group_name}}</option>
+                            </select>
+                        </div>                        
+                        <div class="box-footer">
+                            <button ui-sref="list_category" class="btn btn-default">Hủy</button>
+                            <button type="submit" class="btn btn-success pull-right">Thêm mới</button>
+                        </div><!-- /.box-footer -->
+                    </form>
+                </div>        
+            </div><!-- /.box -->
+        </section><!-- /.content -->
+    </section>
+</div>
