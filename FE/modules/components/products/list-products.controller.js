@@ -13,7 +13,7 @@
 
         $scope.currentPage = '1';
 
-        $scope.listItems = [];
+        $scope.listProducts = [];
 
         $scope.loadItem = function (page) {
 
@@ -24,8 +24,8 @@
                 data: { pageIndex: page, pageSize: $scope.pageSize},
                 url: current_url + '/api/Itemapi/search',
             }).then(function (response) {
-                $scope.totalItems = response.data[0].recordCount;
-                $scope.listItems = response.data;
+                $scope.totalProducts = response.data[0].recordCount;
+                $scope.listProducts = response.data;
             });
         };
 

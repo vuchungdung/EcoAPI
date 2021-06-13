@@ -29,6 +29,7 @@ namespace EcoAPI.Controllers
             string msgError = "";
             try
             {
+                model.item_id = Guid.NewGuid().ToString();
                 var result = _db.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_item_create",
                 "@item_id", model.item_id,
                 "@item_group_id", model.item_group_id,

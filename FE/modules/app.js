@@ -53,9 +53,9 @@
                 controller: "orderListController"
             })
             .state('edit_order', {
-                url: '/edit_order',
+                url: '/edit_order/:id',
                 templateUrl: 'modules/components/orders/edit-orders.view.html',
-                //controller: "loginController"
+                controller: "orderEditController"
             })
         $urlRouterProvider.otherwise('/dasboard');
     };

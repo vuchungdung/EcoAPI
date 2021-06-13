@@ -13,7 +13,7 @@
 
         $scope.page = '1';
 
-        $scope.listItems = [];
+        $scope.listOrders = [];
 
         $scope.hoten;
 
@@ -26,12 +26,22 @@
                 data: { pageIndex: page, pageSize: $scope.pageSize, hoten:$scope.hoten, diachi: $scope.diachi},
                 url: current_url + '/api/OrderApi/search',
             }).then(function (response) {
-                console.log(response);
-                // $scope.totalItems = response.data[0].recordCount;
-                // $scope.listItems = response.data;
+                $scope.totalOrders = response.data[0].recordCount;
+                $scope.listOrders = response.data;
             });
         }
         $scope.loadItem($scope.currentPage);
+        $scope.exportWord = function(id){
+            $http({
+                method: 'GET',           
+                data: null,
+                url: current_url + '/api/OrderApi/download',
+                responseType: 'blob'
+            }).then(function (response) {
+                var blob = response.data; 
+                saveAs(blob, 'hoa-don.doc');
+            })
+        }
     }
 
 })(angular.module('Admin'));

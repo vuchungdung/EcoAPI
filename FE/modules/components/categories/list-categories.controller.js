@@ -13,7 +13,7 @@
 
         $scope.page = '1';
 
-        $scope.listItems = [];
+        $scope.listCategories = [];
 
         $scope.loadItem = function (page) {
             $scope.currentPage = page;
@@ -22,8 +22,8 @@
                 data: { pageIndex: page, pageSize: $scope.pageSize},
                 url: current_url + '/api/ItemGroupApi/search',
             }).then(function (response) {
-                $scope.totalItems = response.data[0].recordCount;
-                $scope.listItems = response.data;
+                $scope.totalCategories = response.data[0].recordCount;
+                $scope.listCategories = response.data;
             });
         }
         $scope.loadItem($scope.currentPage);

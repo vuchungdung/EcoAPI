@@ -31,7 +31,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr dir-paginate="item in listItems|itemsPerPage:pageSize" total-items="totalItems">
+                                    <tr dir-paginate="item in listCategories|itemsPerPage:pageSize" total-items="totalCategories">
                                         <td>{{item.item_group_name}}</td>
                                         <td>
                                             <a ng-click="deleteConfirm(item.item_group_id)" data-toggle="modal" data-target="#myModal"><i style="color:red" class="fa fa-fw fa-trash"></i></a>
@@ -46,7 +46,7 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            <div ng-if="listItems" style="padding-top: 10px; padding-bottom:10px; text-align:center">
+                            <div ng-if="listCategories" style="padding-top: 10px; padding-bottom:10px; text-align:center">
                                 <dir-pagination-controls max-size="pageSize" direction-links="true" boundary-links="true"
                                                          on-page-change="loadItem(newPageNumber)">
                                 </dir-pagination-controls>

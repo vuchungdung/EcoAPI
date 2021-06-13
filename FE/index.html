@@ -14,6 +14,10 @@
   <script src="./libs/angular/angular.min.js"></script>
   <script src="./libs/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="./dist/js/dirPagination.js"></script>
+  <script src="/node_modules/angular-file-saver/dist/angular-file-saver.js"></script>
+  <script src="./node_modules/blob-tmp/Blob.js"></script>
+  <script src="./node_modules/file-saver/FileSaver.js"></script>
+  <script src="./node_modules/angular-file-saver/dist/angular-file-saver.bundle.js"></script>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -288,7 +292,7 @@
       </div>
     </nav>
   </header>
-  <aside class="main-sidebar" style="height:1300px">
+  <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
@@ -408,7 +412,7 @@
 
   <script src="./modules/components/orders/add-orders.controller.js"></script>
   <script src="./modules/components/orders/list-orders.controller.js"></script>
-
+  <script src="./modules/components/orders/edit-orders.controller.js"></script>
   
   <script>
     $(document).ready(function () {

@@ -10,48 +10,66 @@
                 <li class="active">Hóa đơn</li>
             </ol>
         </section>
-        
+
         <!-- Main content -->
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
-        
+
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">Danh sách hóa đơn</h3>
-                            <a ui-sref="add_category" style="margin-right:10px;position:absolute;right:0" class="btn btn-success"><i class="fa fa-fw fa-plus"></i>Thêm mới</a>
+                            <a ui-sref="add_order" style="margin-right:10px;position:absolute;right:0"
+                                class="btn btn-success"><i class="fa fa-fw fa-plus"></i>Thêm mới</a>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Tên hóa đơn</th>
+                                        <th>Tên khách hàng</th>
                                         <th>Địa chỉ</th>
-                                        <th style="width:8%">Thao tác</th>
+                                        <th>Email liên hệ</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Tổng tiền thanh toán</th>
+                                        <th style="width:10%">Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr dir-paginate="item in listItems|itemsPerPage:pageSize" total-items="totalItems">
+                                    <tr dir-paginate="item in listOrders|itemsPerPage:pageSize"
+                                        total-items="totalOrders">
                                         <td>{{item.ho_ten}}</td>
                                         <td>{{item.dia_chi}}</td>
+                                        <td>{{item.email}}</td>
+                                        <td>{{item.phone}}</td>
+                                        <td style="font-weight: 600;color: red;">{{item.total | currency:"(đồng) "}}
+                                        </td>
                                         <td>
-                                            <a ng-click="deleteConfirm(item.item_group_id)" data-toggle="modal" data-target="#myModal"><i style="color:red" class="fa fa-fw fa-trash"></i></a>
-                                            <a ng-click="edit(item.item_group_id)"><i style="color:green" class="fa fa-fw fa-pencil"></i></a>
+                                            <a ng-click="deleteConfirm(item.ma_hoa_don)" data-toggle="modal"
+                                                data-target="#myModal"><i style="color:red"
+                                                    class="fa fa-fw fa-trash"></i></a>
+                                            <a ui-sref="edit_order({id:item.ma_hoa_don})"><i style="color:green"
+                                                    class="fa fa-fw fa-pencil"></i></a>
+                                            <a ng-click="exportWord()"><i style="color: blue;" class="fa fa-fw fa-file-word-o"></i></a>
+                                            <a data-toggle="modal" data-target="#myModal2"><i style="color: black;"
+                                                    class="fa fa-fw fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Tên hóa đơn</th>
+                                        <th>Tên khách hàng</th>
                                         <th>Địa chỉ</th>
+                                        <th>Email liên hệ</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Tổng tiền thanh toán</th>
                                         <th style="width:8%">Thao tác</th>
                                     </tr>
                                 </tfoot>
                             </table>
-                            <div ng-if="listItems" style="padding-top: 10px; padding-bottom:10px; text-align:center">
-                                <dir-pagination-controls max-size="pageSize" direction-links="true" boundary-links="true"
-                                                         on-page-change="loadItem(newPageNumber)">
+                            <div ng-if="listOrders" style="padding-top: 10px; padding-bottom:10px; text-align:center">
+                                <dir-pagination-controls max-size="pageSize" direction-links="true"
+                                    boundary-links="true" on-page-change="loadItem(newPageNumber)">
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -76,9 +94,25 @@
                         <button type="button" id="deleteBtn" class="btn btn-danger" data-dismiss="modal">Xóa</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
-        
+
                 </div>
-        
+
+            </div>
+        </div>
+        <div class="modal fade" id="myModal2" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Hóa đơn chi tiết</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
             </div>
         </div>
     </section>

@@ -84,6 +84,12 @@
             item = {};
             item.ho_ten = $scope.ho_ten;
             item.dia_chi = $scope.dia_chi;
+            item.email  = $scope.email;
+            item.phone = $scope.phone;
+            item.total = 0;
+            $scope.listItemLocal.forEach(function(i){
+                item.total = item.total + i.total;
+            })
             item.listjson_chitiet = $scope.listItemLocal;
             $http({
                 method: 'POST',
@@ -93,6 +99,8 @@
                 $scope.ho_ten = "";
                 $scope.dia_chi = "";
                 $scope.so_luong = "";
+                $scope.email = "";
+                $scope.phone = "";
                 $scope.listItemLocal = [];
                 alert('Thực hiện thành công');
             });
@@ -101,8 +109,11 @@
 
         $scope.ReLoad = function(){
             $scope.ho_ten = "";
-            $scope.dia_chi = "";
-            $scope.listItemLocal = [];
+                $scope.dia_chi = "";
+                $scope.so_luong = "";
+                $scope.email = "";
+                $scope.phone = "";
+                $scope.listItemLocal = [];
         }
     }
 
