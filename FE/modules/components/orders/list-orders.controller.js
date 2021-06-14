@@ -35,7 +35,7 @@
             $http({
                 method: 'GET',           
                 data: null,
-                url: current_url + '/api/OrderApi/download',
+                url: current_url + '/api/OrderApi/download/'+id,
                 responseType: 'blob'
             }).then(function (response) {
                 var blob = response.data; 

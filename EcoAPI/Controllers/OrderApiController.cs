@@ -12,6 +12,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Spire.Doc;
 using Spire.Doc.Documents;
+using System.Globalization;
 
 namespace EcoAPI.Controllers
 {
@@ -172,22 +173,69 @@ namespace EcoAPI.Controllers
             }
         }
         [HttpGet]
-        [Route("download")]      
-        public FileStreamResult Download(int id)
+        [Route("download/{id}")]      
+        public FileStreamResult Download(string id)
         {
+            string msgError = "";
             try
             {
+                var dt = _db.ExecuteSProcedureReturnDataTable(out msgError, "sp_hoa_don_get_by_id",
+                     "@ma_hoa_don", id);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                var list = dt.ConvertTo<HoaDonModel>().ToList();
+                var hoa_don = new HoaDonModel();
+                hoa_don.listjson_chitiet = new List<ChiTietHoaDonModel>();
+                foreach (var item in list)
+                {
+                    hoa_don.listjson_chitiet.Add(JsonConvert.DeserializeObject<ChiTietHoaDonModel>(item.chi_tiet));
+                }
+                hoa_don.ma_hoa_don = id;
+                hoa_don.ho_ten = list.FirstOrDefault().ho_ten;
+                hoa_don.dia_chi = list.FirstOrDefault().dia_chi;
+                hoa_don.email = list.FirstOrDefault().email;
+                hoa_don.phone = list.FirstOrDefault().phone;
+                hoa_don.total = list.FirstOrDefault().total;
                 var webRoot = _environment.ContentRootPath;
                 var filePath = webRoot + "/wwwroot/file\\hoadon.doc";
                 Document document = new Document();
                 document.LoadFromFile(filePath);
                 Section sec = document.Sections[0];
-                TextSelection[] finds = document.FindAllString("{{$name}}", true, true);
-                finds[0].GetAsOneRange().Text = "Thảo";
-                var newFile = webRoot + "/wwwroot/file\\hoadon-new.doc";
+                TextSelection[] find_1 = document.FindAllString("{{$name}}", true, true);
+                find_1[0].GetAsOneRange().Text = hoa_don.ho_ten;
+                TextSelection[] find_2 = document.FindAllString("{{$phone}}", true, true);
+                find_2[0].GetAsOneRange().Text = hoa_don.phone;
+                TextSelection[] find_3 = document.FindAllString("{{$address}}", true, true);
+                find_3[0].GetAsOneRange().Text = hoa_don.dia_chi;
+                TextSelection[] find_4 = document.FindAllString("{{$id}}", true, true);
+                find_4[0].GetAsOneRange().Text = hoa_don.ma_hoa_don.Substring(0, 8);
+                Table table = document.Sections[0].Tables[1] as Table;
+                int stt = 1;
+                CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+                foreach (var item in hoa_don.listjson_chitiet)
+                {                    
+                    TableRow newRow = table.Rows[table.Rows.Count-1].Clone();
+                    table.Rows.Insert(table.Rows.Count, newRow);
+                    TextSelection[] find_5 = document.FindAllString("{{$stt}}", true, true);
+                    find_5[0].GetAsOneRange().Text = stt.ToString();
+                    TextSelection[] find_6 = document.FindAllString("{{$item_name}}", true, true);
+                    find_6[0].GetAsOneRange().Text = item.item_name;
+                    TextSelection[] find_7 = document.FindAllString("{{$item_count}}", true, true);
+                    find_7[0].GetAsOneRange().Text = item.so_luong.ToString();
+                    TextSelection[] find_8 = document.FindAllString("{{$item_price}}", true, true);
+                    find_8[0].GetAsOneRange().Text = item.item_price.ToString("#,###", cul.NumberFormat);
+                    TextSelection[] find_9 = document.FindAllString("{{$item_total}}", true, true);
+                    find_9[0].GetAsOneRange().Text = (item.so_luong*item.item_price).ToString("#,###", cul.NumberFormat);
+                    stt++;
+                }
+                TextSelection[] find_10 = document.FindAllString("{{$created_at}}", true, true);
+                find_10[0].GetAsOneRange().Text = DateTime.Now.ToString("dd-MM-yyyy");
+                table.Rows.Remove(table.Rows[table.Rows.Count - 1]);
+                TextSelection[] find_11 = document.FindAllString("{{$total}}", true, true);
+                find_11[0].GetAsOneRange().Text = hoa_don.total.ToString("#,###", cul.NumberFormat);
+                var newFile = webRoot + "/wwwroot/file\\hoadon-"+DateTime.Now.ToString("dd-MM-yyyy")+"-"+hoa_don.ma_hoa_don+".doc";
                 document.SaveToFile(newFile, FileFormat.Docm2013);
                 var stream = System.IO.File.OpenRead(newFile);
-                System.IO.File.Delete(newFile);
                 return new FileStreamResult(stream, "application/doc");
             }
             catch
