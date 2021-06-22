@@ -67,6 +67,7 @@
                 item.so_luong = $scope.item_count;
                 item.total = $scope.item_count * item.item_price;
                 item.status = 1;
+                item.invest = response.data.item_invest * $scope.item_count;
                 $scope.listItemLocal.push(item);
                 $scope.item_count = angular.copy();
             });
@@ -104,8 +105,12 @@
             item.email  = $scope.email;
             item.phone = $scope.phone;
             item.total = 0;
+            item.invest = 0;
+            item.total_item = 0;
             $scope.listItemLocal.forEach(function(i){
                 item.total = item.total + i.total;
+                item.total_item = item.total_item + i.so_luong;
+                item.invest = item.invest + i.invest;
             })
             item.listjson_chitiet = $scope.listItemLocal;
             $http({

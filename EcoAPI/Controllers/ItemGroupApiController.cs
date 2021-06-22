@@ -1,5 +1,6 @@
 ﻿using EcoAPI.Helper;
 using EcoAPI.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model;
@@ -12,6 +13,7 @@ namespace EcoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ItemGroupApiController : ControllerBase
     {
         private IDatabaseHelper _db;

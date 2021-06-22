@@ -13,11 +13,13 @@ using System.Threading.Tasks;
 using Spire.Doc;
 using Spire.Doc.Documents;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EcoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderApiController : ControllerBase
     {
         private readonly IDatabaseHelper _db;
@@ -51,6 +53,9 @@ namespace EcoAPI.Controllers
                 "@email", model.email,
                 "@phone", model.phone,
                 "@total", model.total,
+                "@total_item", model.total_item,
+                "@created_at", model.created_at,
+                "invest", model.invest,
                 "@listjson_chitiet", model.listjson_chitiet != null ? MessageConvert.SerializeObject(model.listjson_chitiet) : null);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
@@ -87,6 +92,9 @@ namespace EcoAPI.Controllers
                 "@email", model.email,
                 "@phone", model.phone,
                 "@total", model.total,
+                "@total_item", model.total_item,
+                "@created_at", model.created_at,
+                "invest", model.invest,
                 "@listjson_chitiet", model.listjson_chitiet != null ? MessageConvert.SerializeObject(model.listjson_chitiet) : null);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {

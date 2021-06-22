@@ -24,7 +24,9 @@
             }).then(function (response) {
                 $scope.totalCategories = response.data[0].recordCount;
                 $scope.listCategories = response.data;
-            });
+            }).catch(function(err){
+                console.log(err);
+            })
         }
         $scope.loadItem($scope.currentPage);
     }

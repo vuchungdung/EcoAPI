@@ -29,6 +29,7 @@
                                         <th style="width:15%">Hình ảnh</th>
                                         <th>Mô tả ngắn</th>
                                         <th style="width:12%">Đơn giá</th>
+                                        <th style="width:12%">Chi phí</th>
                                         <th style="width:8%">Thao tác</th>
                                     </tr>
                                 </thead>
@@ -40,9 +41,10 @@
                                         </td>
                                         <td>{{item.item_description}}</td>
                                         <td style="font-weight: 600;color: red;">{{item.item_price | currency:"(đồng) "}}</td>
+                                        <td style="font-weight: 600;color: red;">{{item.item_invest | currency:"(đồng) "}}</td>
                                         <td>
                                             <a ng-click="deleteConfirm(item.item_id)" data-toggle="modal" data-target="#myModal"><i style="color:red" class="fa fa-fw fa-trash"></i></a>
-                                            <a ng-click="edit({id:item.item_id})"><i style="color:green" class="fa fa-fw fa-pencil"></i></a>
+                                            <a ui-sref="edit_product({id:item.item_id})"><i style="color:green" class="fa fa-fw fa-pencil"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -52,6 +54,7 @@
                                         <th style="width:15%">Hình ảnh</th>
                                         <th>Mô tả ngắn</th>
                                         <th style="width:12%">Đơn giá</th>
+                                        <th style="width:12%">Chi phí</th>
                                         <th style="width:8%">Thao tác</th>
                                     </tr>
                                 </tfoot>

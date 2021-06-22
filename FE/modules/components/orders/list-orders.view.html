@@ -21,6 +21,12 @@
                             <h3 class="box-title">Danh sách hóa đơn</h3>
                             <a ui-sref="add_order" style="margin-right:10px;position:absolute;right:0"
                                 class="btn btn-success"><i class="fa fa-fw fa-plus"></i>Thêm mới</a>
+                            <input type="date" class="form-control" ng-model="date" style="margin-right:10px;position:absolute;right:110px;top:10px;width:160px" />
+                            <button ng-click="output(date)" style="margin-right:10px;position:absolute;right:277px"
+                                class="btn btn-warning"><i class="fa fa-fw fa-file-excel-o"></i>Kết xuất</button>
+                            <input type="text" class="form-control" ng-model="keyword" placeholder="Nhập từ khóa tìm kiếm" ng-model="date" style="margin-right:10px;position:absolute;right:377px;top:10px;width:200px" />
+                            <button ng-click="search()" style="margin-right:10px;position:absolute;right:585px"
+                                class="btn btn-primary"><i class="fa fa-fw fa-search"></i>Tìm kiếm</button>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
