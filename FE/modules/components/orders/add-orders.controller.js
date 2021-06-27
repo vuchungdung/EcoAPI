@@ -48,28 +48,22 @@
 
         $scope.item_count;
 
-        var Id = "";
-
-        $scope.Item = function (id) {
-            Id = id;
-        }
-
-        $scope.addItem = function () {
+        $scope.addItem = function (id) {
             const item = {};
+            var result =  parseInt(prompt("Nhập số lượng sản phẩm mong muốn", 0));
             $http({
                 method: 'GET',
                 data: {},
-                url: current_url + '/api/Itemapi/item/' + Id,
+                url: current_url + '/api/Itemapi/item/' + id,
             }).then(function (response) {
                 item.item_id = response.data.item_id;
                 item.item_image = response.data.item_image;
                 item.item_name = response.data.item_name;
                 item.item_price = response.data.item_price;
-                item.so_luong = $scope.item_count;
-                item.total = $scope.item_count * item.item_price;
-                item.invest = response.data.item_invest * $scope.item_count;
+                item.so_luong = result;
+                item.total = result * item.item_price;
+                item.invest = response.data.item_invest * result;
                 $scope.listItemLocal.push(item);
-                $scope.item_count = angular.copy();
             });
         }
         $scope.deleteLocal = function (id) {
@@ -114,11 +108,11 @@
 
         $scope.ReLoad = function(){
             $scope.ho_ten = "";
-                $scope.dia_chi = "";
-                $scope.so_luong = "";
-                $scope.email = "";
-                $scope.phone = "";
-                $scope.listItemLocal = [];
+            $scope.dia_chi = "";
+            $scope.so_luong = "";
+            $scope.email = "";
+            $scope.phone = "";
+            $scope.listItemLocal = [];
         }
     }
 

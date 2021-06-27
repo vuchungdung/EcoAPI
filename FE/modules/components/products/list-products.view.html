@@ -43,7 +43,7 @@
                                         <td style="font-weight: 600;color: red;">{{item.item_price | currency:"(đồng) "}}</td>
                                         <td style="font-weight: 600;color: red;">{{item.item_invest | currency:"(đồng) "}}</td>
                                         <td>
-                                            <a ng-click="deleteConfirm(item.item_id)" data-toggle="modal" data-target="#myModal"><i style="color:red" class="fa fa-fw fa-trash"></i></a>
+                                            <a ng-click="deleteConfirm(item.item_id)"><i style="color:red" class="fa fa-fw fa-trash"></i></a>
                                             <a ui-sref="edit_product({id:item.item_id})"><i style="color:green" class="fa fa-fw fa-pencil"></i></a>
                                         </td>
                                     </tr>
@@ -72,24 +72,5 @@
             </div>
             <!-- /.row -->
         </section>
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Bạn đang yêu cầu xóa dữ liệu</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        Bạn có thật sự muốn xóa dữ liệu này ?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="deleteBtn" class="btn btn-danger" data-dismiss="modal">Xóa</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-        
-                </div>
-        
-            </div>
-        </div>
     </section>
 </div>

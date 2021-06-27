@@ -26,9 +26,30 @@
                 data: { pageIndex: page, pageSize: $scope.pageSize, hoten:$scope.hoten, diachi: $scope.diachi},
                 url: current_url + '/api/OrderApi/search',
             }).then(function (response) {
-                $scope.totalOrders = response.data[0].recordCount;
-                $scope.listOrders = response.data;
+                if(response.data.length > 0){
+                    $scope.totalOrders = response.data[0].recordCount;
+                    $scope.listOrders = response.data;
+                }
+                else{
+                    alert("Danh sách hóa đơn trống!");
+                }
             });
+        }
+
+        $scope.deleteConfirm = function(id){
+            var result = confirm("BẠN ĐANG YÊU CẦU XÓA ĐƠN HÀNG ?");
+            if(result == true){
+                $http({
+                    method: 'GET',           
+                    data: null,
+                    url: current_url + '/api/OrderApi/delete/'+id,
+                }).then(function (response) {
+                    if(response.status == 200){
+                        $scope.loadItem($scope.currentPage);
+                        alert("Bạn đã xóa đơn hàng thành công !")
+                    }
+                })
+            }
         }
         $scope.loadItem($scope.currentPage);
         $scope.exportWord = function(id){
