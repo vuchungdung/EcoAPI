@@ -38,7 +38,7 @@
                                         <th>Email liên hệ</th>
                                         <th>Số điện thoại</th>
                                         <th>Tổng tiền thanh toán</th>
-                                        <th style="width:10%">Thao tác</th>
+                                        <th style="width:8%">Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,8 +57,6 @@
                                             <a ui-sref="edit_order({id:item.ma_hoa_don})"><i style="color:green"
                                                     class="fa fa-fw fa-pencil"></i></a>
                                             <a style="cursor: pointer;" ng-click="exportWord(item.ma_hoa_don)"><i style="color: blue;" class="fa fa-fw fa-file-word-o"></i></a>
-                                            <a data-toggle="modal" data-target="#myModal2"><i style="color: black;"
-                                                    class="fa fa-fw fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -103,22 +101,6 @@
 
                 </div>
 
-            </div>
-        </div>
-        <div class="modal fade" id="myModal2" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Hóa đơn chi tiết</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-
-                    </div>
-                    <div class="modal-footer">
-
-                    </div>
-                </div>
             </div>
         </div>
     </section>

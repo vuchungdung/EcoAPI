@@ -16,7 +16,7 @@
                 url: '/dashboard',
                 templateUrl: 'modules/components/dashboards/dashboards.view.html',
                 parent: 'base',
-                //controller: "loginController"
+                controller: "dashboardController"
             })
             .state('add_product', {
                 url: '/add_product',
