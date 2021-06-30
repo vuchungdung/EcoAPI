@@ -49,7 +49,7 @@
                 controller: "categoryListController"
             })
             .state('edit_category', {
-                url: '/edit_category',
+                url: '/edit_category/:id',
                 templateUrl: 'modules/components/categories/edit-categories.view.html',
                 parent: 'base',
                 //controller: "loginController"
@@ -71,6 +71,24 @@
                 templateUrl: 'modules/components/orders/edit-orders.view.html',
                 parent: 'base',
                 controller: "orderEditController"
+            })
+            .state('add_user', {
+                url: '/add_user',
+                templateUrl: 'modules/components/users/add-users.view.html',
+                parent: 'base',
+                controller: "userAddController"
+            })
+            .state('list_user', {
+                url: '/list_user',
+                templateUrl: 'modules/components/users/list-users.view.html',
+                parent: 'base',
+                controller: "userListController"
+            })
+            .state('edit_user', {
+                url: '/edit_user/:id',
+                templateUrl: 'modules/components/users/edit-users.view.html',
+                parent: 'base',
+                controller: "userEditController"
             })
             .state('login', {
                 url: "/login",
