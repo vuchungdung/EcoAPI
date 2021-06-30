@@ -50,21 +50,23 @@
 
         $scope.addItem = function (id) {
             const item = {};
-            var result =  parseInt(prompt("Nhập số lượng sản phẩm mong muốn", 0));
-            $http({
-                method: 'GET',
-                data: {},
-                url: current_url + '/api/Itemapi/item/' + id,
-            }).then(function (response) {
-                item.item_id = response.data.item_id;
-                item.item_image = response.data.item_image;
-                item.item_name = response.data.item_name;
-                item.item_price = response.data.item_price;
-                item.so_luong = result;
-                item.total = result * item.item_price;
-                item.invest = response.data.item_invest * result;
-                $scope.listItemLocal.push(item);
-            });
+            var result =  parseInt(prompt("Nhập số lượng sản phẩm mong muốn", 1));
+            if(result >= 1){
+                $http({
+                    method: 'GET',
+                    data: {},
+                    url: current_url + '/api/Itemapi/item/' + id,
+                }).then(function (response) {
+                    item.item_id = response.data.item_id;
+                    item.item_image = response.data.item_image;
+                    item.item_name = response.data.item_name;
+                    item.item_price = response.data.item_price;
+                    item.so_luong = result;
+                    item.total = result * item.item_price;
+                    item.invest = response.data.item_invest * result;
+                    $scope.listItemLocal.push(item);
+                });
+            }            
         }
         $scope.deleteLocal = function (id) {
             for (var i = 0; i < $scope.listItemLocal.length; i++) {
@@ -101,6 +103,7 @@
                 $scope.email = "";
                 $scope.phone = "";
                 $scope.listItemLocal = [];
+                $state.go('list_order')
                 alert('Thực hiện thành công');
             });
 

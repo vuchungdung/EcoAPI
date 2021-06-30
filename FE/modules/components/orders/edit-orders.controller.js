@@ -48,28 +48,31 @@
                 $scope.email = response.data.email;
                 $scope.phone = response.data.phone;
                 $scope.listItemLocal = response.data.listjson_chitiet;
+                console.log(response.data);
             });
         };
         $scope.Item();
         $scope.addItem = function (id) {
             const item = {};
-            var result =  parseInt(prompt("Nhập số lượng sản phẩm mong muốn", 0));
-            $http({
-                method: 'GET',
-                data: {},
-                url: current_url + '/api/Itemapi/item/' + id,
-            }).then(function (response) {
-                console.log(response);
-                item.item_id = response.data.item_id;
-                item.item_image = response.data.item_image;
-                item.item_name = response.data.item_name;
-                item.item_price = response.data.item_price;
-                item.so_luong = result;
-                item.total = result * item.item_price;
-                item.status = 1;
-                item.invest = response.data.item_invest * result;
-                $scope.listItemLocal.push(item);
-            });
+            var result =  parseInt(prompt("Nhập số lượng sản phẩm mong muốn", 1));
+            if(result >= 1){
+                $http({
+                    method: 'GET',
+                    data: {},
+                    url: current_url + '/api/Itemapi/item/' + id,
+                }).then(function (response) {
+                    console.log(response);
+                    item.item_id = response.data.item_id;
+                    item.item_image = response.data.item_image;
+                    item.item_name = response.data.item_name;
+                    item.item_price = response.data.item_price;
+                    item.so_luong = result;
+                    item.total = result * item.item_price;
+                    item.status = 1;
+                    item.invest = response.data.item_invest * result;
+                    $scope.listItemLocal.push(item);
+                });
+            }            
         }
 
         $scope.deleteLocal = function (id) {
@@ -107,7 +110,6 @@
                 item.invest = item.invest + i.invest;
             })
             item.listjson_chitiet = $scope.listItemLocal;
-            console.log(item);
             $http({
                 method: 'POST',
                 data: item,
@@ -119,6 +121,7 @@
                 $scope.email = "";
                 $scope.phone = "";
                 $scope.listItemLocal = [];
+                $state.go('list_order');
                 alert('Thực hiện thành công');
             });
 
