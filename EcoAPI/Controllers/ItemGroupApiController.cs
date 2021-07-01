@@ -13,7 +13,7 @@ namespace EcoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ItemGroupApiController : ControllerBase
     {
         private IDatabaseHelper _db;

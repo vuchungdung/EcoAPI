@@ -19,7 +19,7 @@ namespace EcoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class OrderApiController : ControllerBase
     {
         private readonly IDatabaseHelper _db;

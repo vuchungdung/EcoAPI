@@ -4,6 +4,7 @@
     userAddController.$inject = ['$http', '$scope','$state'];
 
     function userAddController($http, $scope, $state) {
+        var user = JSON.parse(localStorage.getItem("user"));
 
         var current_url = "https://localhost:44374";
 
@@ -13,6 +14,7 @@
             $http({
                 method: 'POST',
                 data: $scope.user,
+                headers: { "Authorization": 'Bearer ' + user.token },
                 url: current_url + '/api/AuthenApi/add',
             }).then(function (response) {
                 if(response){

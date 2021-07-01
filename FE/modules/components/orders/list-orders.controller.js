@@ -4,6 +4,7 @@
     orderListController.$inject = ['$http', '$scope','$state'];
 
     function orderListController($http, $scope) {
+        var user = JSON.parse(localStorage.getItem("user"));
 
         var current_url = "https://localhost:44374";
 

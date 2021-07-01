@@ -4,6 +4,7 @@
     productListController.$inject = ['$http', '$scope','$state'];
 
     function productListController($http, $scope) {
+        var user = JSON.parse(localStorage.getItem("user"));
 
         var current_url = "https://localhost:44374";
 
@@ -20,7 +21,8 @@
             $scope.currentPage = page;
             
             $http({
-                method: 'POST',           
+                method: 'POST',       
+                headers: { "Authorization": 'Bearer ' + user.token },    
                 data: { pageIndex: page, pageSize: $scope.pageSize},
                 url: current_url + '/api/Itemapi/search',
             }).then(function (response) {

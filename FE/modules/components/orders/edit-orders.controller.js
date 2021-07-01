@@ -4,6 +4,7 @@
     orderEditController.$inject = ['$http', '$scope', '$state', '$stateParams'];
 
     function orderEditController($http, $scope, $stateParams) {
+        var user = JSON.parse(localStorage.getItem("user"));
 
         var current_url = "https://localhost:44374";
 
@@ -25,6 +26,7 @@
                     pageIndex: page,
                     pageSize: $scope.pageSize_item
                 },
+                headers: { "Authorization": 'Bearer ' + user.token },
                 url: current_url + '/api/Itemapi/search',
             }).then(function (response) {
                 $scope.totalItems_item = response.data[0].recordCount;
@@ -40,6 +42,7 @@
             $http({
                 method: 'GET',
                 data: null,
+                headers: { "Authorization": 'Bearer ' + user.token },
                 url: current_url + '/api/OrderApi/item/'+$stateParams.params.id,
             }).then(function (response) {
                 $scope.ma_hoa_don = response.data.ma_hoa_don;
@@ -59,6 +62,7 @@
                 $http({
                     method: 'GET',
                     data: {},
+                    headers: { "Authorization": 'Bearer ' + user.token },
                     url: current_url + '/api/Itemapi/item/' + id,
                 }).then(function (response) {
                     console.log(response);
@@ -113,6 +117,7 @@
             $http({
                 method: 'POST',
                 data: item,
+                headers: { "Authorization": 'Bearer ' + user.token },
                 url: current_url + '/api/Orderapi/edit',
             }).then(function (response) {
                 $scope.ho_ten = "";

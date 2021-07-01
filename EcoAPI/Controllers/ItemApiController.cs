@@ -15,7 +15,7 @@ namespace EcoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ItemApiController : ControllerBase
     {
         private readonly IDatabaseHelper _db;
@@ -153,6 +153,7 @@ namespace EcoAPI.Controllers
 
         [Route("upload")]
         [HttpPost, DisableRequestSizeLimit]
+        [AllowAnonymous]
         public IActionResult UpLoad(IFormFile file)
         {
             if(file != null)

@@ -94,7 +94,7 @@
                 url: "/login",
                 templateUrl: "modules/components/logins/login.view.html",
                 controller: "loginController"
-            })
+            });
         $urlRouterProvider.otherwise('/login');
     };
     function configAuthentication($httpProvider) {

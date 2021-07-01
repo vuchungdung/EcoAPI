@@ -18,6 +18,7 @@ namespace EcoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthenApiController : ControllerBase
     {
         private readonly IDatabaseHelper _db;

@@ -4,6 +4,7 @@
     categoryListController.$inject = ['$http', '$scope','$state'];
 
     function categoryListController($http, $scope) {
+        var user = JSON.parse(localStorage.getItem("user"));
 
         var current_url = "https://localhost:44374";
 
@@ -19,6 +20,7 @@
             $scope.currentPage = page;
             $http({
                 method: 'POST',           
+                headers: { "Authorization": 'Bearer ' + user.token },
                 data: { pageIndex: page, pageSize: $scope.pageSize},
                 url: current_url + '/api/ItemGroupApi/search',
             }).then(function (response) {
