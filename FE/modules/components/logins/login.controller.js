@@ -18,10 +18,10 @@
                     $state.go('dashboard');
                 }
                 else{
-                    alert("Đăng nhập thất bại!")
+                    alert("Đăng nhập thất bại!");
                 }
             }).catch(function(err){
-                console.log(err);
+                alert("Đăng nhập thất bại!");
             })
         }
     }

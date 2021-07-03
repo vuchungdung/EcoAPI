@@ -131,6 +131,17 @@
             });
 
         };
+        $scope.listGroup = [];
+        $scope.listGroup = function(){
+            $http({
+                method: 'GET',           
+                data: {},
+                headers: { "Authorization": 'Bearer ' + user.token },
+                url: current_url + '/api/ItemGroupapi/dropdown-add',
+            }).then(function (response) {
+                $scope.listGroup = response.data;
+            });
+        }
 
     }
 

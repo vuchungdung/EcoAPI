@@ -23,8 +23,15 @@
                     <div class="row">
                         <div class="col-md-5">
                             <h3
-                                style="color: red;font-weight: 600;text-align: center;margin-top: 0px;margin-bottom:19px">
+                                style="color: red;font-weight: 600;text-align: center;margin-top: 0px;margin-bottom:10px">
                                 DANH SÁCH THỰC ĐƠN</h3>
+                                <div class="form-group">
+                                    <label class="control-label">>> Chọn sản phẩm theo danh mục</label>
+                                    <select class="form-control" ng-model="item_group_id" ng-change="getItemGroup()" style="width: 100%;" ng-init="listGroup()">
+                                        <option value="">Chọn danh mục sản phẩm</option>
+                                        <option ng-repeat="a in listGroup" value="{{a.item_group_id}}">{{a.item_group_name}}</option>
+                                    </select>
+                                </div>
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>

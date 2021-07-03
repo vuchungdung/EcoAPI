@@ -24,13 +24,19 @@
                 method: 'POST',
                 data: {
                     pageIndex: page,
-                    pageSize: $scope.pageSize_item
+                    pageSize: $scope.pageSize_item,
+                    item_group_id: $scope.item_group_id
                 },
                 headers: { "Authorization": 'Bearer ' + user.token },
                 url: current_url + '/api/Itemapi/search',
             }).then(function (response) {
-                $scope.totalItems_item = response.data[0].recordCount;
-                $scope.listItems_item = response.data;
+                if(response.data.length > 0){
+                    $scope.totalItems_item = response.data[0].recordCount;
+                    $scope.listItems_item = response.data;
+                }
+                else{
+                    $scope.listItems_item = [];
+                }
             });
         };
 
@@ -120,6 +126,21 @@
             $scope.email = "";
             $scope.phone = "";
             $scope.listItemLocal = [];
+        }
+        $scope.listGroup = [];
+        $scope.listGroup = function(){
+            $http({
+                method: 'GET',           
+                data: {},
+                headers: { "Authorization": 'Bearer ' + user.token },
+                url: current_url + '/api/ItemGroupapi/dropdown-add',
+            }).then(function (response) {
+                $scope.listGroup = response.data;
+            });
+        }
+
+        $scope.getItemGroup = function(){
+            $scope.loadItem($scope.currentPage_item);
         }
     }
 

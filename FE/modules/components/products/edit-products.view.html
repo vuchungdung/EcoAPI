@@ -1,0 +1,76 @@
+<div class="content-wrapper">
+    <section class="container-fluid" style="padding-left: 0px;padding-right: 0px;">
+        <section class="content-header">
+            <h1>
+                QUẢN LÝ
+                <small>SẢN PHẨM</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Trang chính</a></li>
+                <li class="active">Sản phẩm</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Horizontal Form -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Cập nhật</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                    <form ng-submit="add()">
+                        <!-- /.box-body -->
+                        <div class="form-group">
+                            <label class="control-label">Tên sản phẩm</label>
+                            <input type="text" class="form-control" required name="item_name" ng-model="product.item_name">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Mô tả ngắn</label>
+                            <input type="text" class="form-control" name="item_description" required ng-model="product.item_description">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Danh mục sản phẩm</label>
+                                    <select class="form-control" ng-model="product.item_group_id" style="width: 100%;" ng-init="loadGroup()">
+                                        <option value="">Chọn danh mục sản phẩm</option>
+                                        <option ng-repeat="a in listGroup" value="{{a.item_group_id}}">{{a.item_group_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Giá bán</label>
+                                    <input type="number" class="form-control" name="price" required ng-model="product.item_price">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Chi phí sản xuất</label>
+                                    <input type="number" class="form-control" name="invest" required ng-model="product.item_invest">
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="form-group">
+                            <label class="control-label">Hình ảnh</label>
+                            <input type="file" id="file" ng-model="product.item_image" onchange="angular.element(this).scope().upLoad()">
+                            <img class="img-responsive" id="avtpreview" style="margin-top:8px" id="Img2" src="../../../dist/img/no-image-available.jpg" alt="Ảnh đại diện" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Mô tả sản phẩm</label>
+                            <textarea class="form-control" required name="content" ckeditor="ckeditorOptions"
+                            ng-model="product.item_content"></textarea>
+                        </div>
+                        <div class="box-footer">
+                            <button ui-sref="list_product" class="btn btn-default">Hủy</button>
+                            <button type="submit" class="btn btn-success pull-right">Cập nhật</button>
+                        </div><!-- /.box-footer -->
+                    </form>
+                </div>
+                
+            </div><!-- /.box -->
+        </section><!-- /.content -->
+    </section>
+</div>

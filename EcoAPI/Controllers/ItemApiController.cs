@@ -38,6 +38,7 @@ namespace EcoAPI.Controllers
                 "@item_image", model.item_image,
                 "@item_name", model.item_name,
                 "@item_price", model.item_price,
+                "@item_invest",model.item_invest,
                 "@item_description",model.item_description,
                 "@item_content",model.item_content);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
@@ -96,6 +97,25 @@ namespace EcoAPI.Controllers
             }
         }
         [HttpGet]
+        [Route("item_group/{id}")]
+        public IActionResult ItemByGroup(string id)
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _db.ExecuteSProcedureReturnDataTable(out msgError, "get_item_item_group",
+                     "@item_group_id", id);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return Ok(dt.ConvertTo<ItemModel>().FirstOrDefault());
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        [HttpGet]
+        [AllowAnonymous]
         [Route("list")]
         public IActionResult List()
         {
@@ -119,6 +139,10 @@ namespace EcoAPI.Controllers
             string msgError = "";
             try
             {
+                if (String.IsNullOrEmpty(model.item_group_id))
+                {
+                    model.item_group_id = null;
+                }
                 var dt = _db.ExecuteSProcedureReturnDataTable(out msgError, "sp_item_search",
                     "@page_index", model.pageIndex,
                     "@page_size", model.pageSize,

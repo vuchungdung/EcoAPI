@@ -24,6 +24,7 @@
             $scope.currentPage = page;
             $http({
                 method: 'POST',           
+                headers: { "Authorization": 'Bearer ' + user.token },
                 data: { pageIndex: page, pageSize: $scope.pageSize, hoten:$scope.hoten, diachi: $scope.diachi},
                 url: current_url + '/api/OrderApi/search',
             }).then(function (response) {
@@ -43,6 +44,7 @@
                 $http({
                     method: 'GET',           
                     data: null,
+                    headers: { "Authorization": 'Bearer ' + user.token },
                     url: current_url + '/api/OrderApi/delete/'+id,
                 }).then(function (response) {
                     if(response.status == 200){
@@ -57,6 +59,7 @@
             $http({
                 method: 'GET',           
                 data: null,
+                headers: { "Authorization": 'Bearer ' + user.token },
                 url: current_url + '/api/OrderApi/download/'+id,
                 responseType: 'blob'
             }).then(function (response) {

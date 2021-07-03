@@ -31,6 +31,25 @@
             })
         }
         $scope.loadItem($scope.currentPage);
+
+        $scope.delete = function(id){
+            var result = confirm("BẠN ĐANG YÊU CẦU XÓA DANH MỤC NÀY ?");
+            if(result == true){
+                $http({
+                    method: 'GET',           
+                    data: null,
+                    headers: { "Authorization": 'Bearer ' + user.token },
+                    url: current_url + '/api/ItemGroupApi/delete/'+id,
+                }).then(function (response) {
+                    if(response.status == 200){
+                        $scope.loadItem($scope.currentPage);
+                        alert("Bạn đã xóa đơn hàng thành công !")
+                    }
+                }).catch(function(err){
+                    alert("Đã xảy ra lỗi hệ thống!");
+                })
+            }
+        }
     }
 
 })(angular.module('Admin'));

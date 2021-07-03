@@ -52,7 +52,7 @@
                 url: '/edit_category/:id',
                 templateUrl: 'modules/components/categories/edit-categories.view.html',
                 parent: 'base',
-                //controller: "loginController"
+                controller: "categoryEditController"
             })
             .state('add_order', {
                 url: '/add_order',

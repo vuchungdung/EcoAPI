@@ -148,7 +148,7 @@ namespace EcoAPI.Controllers
                      "@item_group_id", id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                return Ok(dt.ConvertTo<ItemModel>().FirstOrDefault());
+                return Ok(dt.ConvertTo<ItemGroupModel>().FirstOrDefault());
             }
             catch
             {

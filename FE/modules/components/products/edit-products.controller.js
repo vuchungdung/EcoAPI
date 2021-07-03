@@ -8,6 +8,8 @@
 
         var current_url = "https://localhost:44374";
 
+        $scope.product = {};
+
         $scope.Item = function () {
             $http({
                 method: 'GET',
@@ -15,24 +17,38 @@
                 headers: { "Authorization": 'Bearer ' + user.token },
                 url: current_url + '/api/Itemapi/item/'+$stateParams.params.id,
             }).then(function (response) {
-                console.log(response);
+                console.log(response.data);
+                $scope.product = response.data;
+                document.getElementById('avtpreview').setAttribute('src',current_url+"/"+response.data.item_image);
             });
         };
         $scope.Item();
 
-        $scope.Save = function () {
-            item = {};
-            item.listjson_chitiet = $scope.listItemLocal;
+        $scope.save = function(){
             $http({
                 method: 'POST',
-                data: item,
+                data: $scope.product,
                 headers: { "Authorization": 'Bearer ' + user.token },
-                url: current_url + '/api/Itemapi/edit',
+                url: current_url + '/api/ItemApi/edit',
             }).then(function (response) {
-                alert('Thực hiện thành công');
+                if(response){
+                    $scope.product = angular.copy({});
+                    alert("Cập nhật sản phẩm thành công!");
+                    $state.go('list_product');
+                }
+            })
+        }
+        $scope.loadGroup = function() {
+            $http({
+                method: 'GET',           
+                data: {},
+                headers: { "Authorization": 'Bearer ' + user.token },
+                url: current_url + '/api/ItemGroupapi/dropdown-add',
+            }).then(function (response) {
+                $scope.listGroup = response.data;
+                console.log($scope.listGroup);
             });
-
-        };
+        }
     }
 
 })(angular.module('Admin'));

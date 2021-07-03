@@ -38,7 +38,6 @@
         }
 
         $scope.add = function(){
-            console.log($scope.product);
             $http({
                 method: 'POST',
                 data: $scope.product,
@@ -60,6 +59,7 @@
             $http({
                 method: 'GET',           
                 data: {},
+                headers: { "Authorization": 'Bearer ' + user.token },
                 url: current_url + '/api/ItemGroupapi/dropdown-add',
             }).then(function (response) {
                 $scope.listGroup = response.data;

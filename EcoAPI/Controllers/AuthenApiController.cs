@@ -44,7 +44,7 @@ namespace EcoAPI.Controllers
                     throw new Exception(msgError);
                 var user = dt.ConvertTo<UserModel>().FirstOrDefault();
                 if (user == null)
-                    return null;
+                    return BadRequest();
 
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(Secret);

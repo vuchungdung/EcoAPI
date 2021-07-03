@@ -31,7 +31,7 @@
                             <input type="text" class="form-control" name="item_description" required ng-model="product.item_description">
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Danh mục sản phẩm</label>
                                     <select class="form-control" ng-model="product.item_group_id" style="width: 100%;" ng-init="loadGroup()">
@@ -40,10 +40,16 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Giá bán</label>
                                     <input type="number" class="form-control" name="price" required ng-model="product.item_price">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Chi phí sản xuất</label>
+                                    <input type="number" class="form-control" name="invest" required ng-model="product.item_invest">
                                 </div>
                             </div>
                         </div>                        
