@@ -80,6 +80,7 @@ namespace EcoAPI.Controllers
         }
         [HttpGet]
         [Route("item/{id}")]
+        [AllowAnonymous]
         public IActionResult Item(string id)
         {
             string msgError = "";
@@ -97,17 +98,18 @@ namespace EcoAPI.Controllers
             }
         }
         [HttpGet]
+        [AllowAnonymous]
         [Route("item_group/{id}")]
         public IActionResult ItemByGroup(string id)
         {
             string msgError = "";
             try
             {
-                var dt = _db.ExecuteSProcedureReturnDataTable(out msgError, "get_item_item_group",
+                var dt = _db.ExecuteSProcedureReturnDataTable(out msgError, "get_item_by_item_group",
                      "@item_group_id", id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                return Ok(dt.ConvertTo<ItemModel>().FirstOrDefault());
+                return Ok(dt.ConvertTo<ItemModel>().ToList());
             }
             catch
             {

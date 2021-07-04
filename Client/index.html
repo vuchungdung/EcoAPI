@@ -93,66 +93,48 @@
                                     </form>
                                 </div>
                                 <div class="header_account_area">
-                                    <div class="header_account_list  mini_cart_wrapper">
+                                    <div class="header_account_list mini_cart_wrapper">
                                         <a href="javascript:void(0)"><span class="lnr lnr-cart"></span><span
-                                                class="item_count">2</span></a>
+                                                class="item_count">{{listCart.length}}</span></a>
                                         <!--mini cart-->
                                         <div class="mini_cart">
                                             <div class="cart_gallery">
                                                 <div class="cart_close">
                                                     <div class="cart_text">
-                                                        <h3>cart</h3>
+                                                        <h3>Giỏ hàng</h3>
                                                     </div>
                                                     <div class="mini_cart_close">
                                                         <a href="javascript:void(0)"><i class="icon-x"></i></a>
                                                     </div>
                                                 </div>
-                                                <div class="cart_item">
+                                                <div ng-repeat="item in listCart" class="cart_item">
                                                     <div class="cart_img">
-                                                        <a href="#"><img src="assets/img/s-product/product.jpg"
+                                                        <a href="product-details.html#!?id={{ item.item_id }}"><img src="https://localhost:44374/{{item.item_image}}"
                                                                 alt=""></a>
                                                     </div>
                                                     <div class="cart_info">
-                                                        <a href="#">Primis In Faucibus</a>
-                                                        <p>1 x <span> $65.00 </span></p>
+                                                        <a href="product-details.html#!?id={{ item.item_id }}">{{item.item_name}}</a>
+                                                        <p>{{item.item_count}} x <span> {{item.item_price}} </span></p>
                                                     </div>
                                                     <div class="cart_remove">
-                                                        <a href="#"><i class="icon-x"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart_item">
-                                                    <div class="cart_img">
-                                                        <a href="#"><img src="assets/img/s-product/product2.jpg"
-                                                                alt=""></a>
-                                                    </div>
-                                                    <div class="cart_info">
-                                                        <a href="#">Letraset Sheets</a>
-                                                        <p>1 x <span> $60.00 </span></p>
-                                                    </div>
-                                                    <div class="cart_remove">
-                                                        <a href="#"><i class="icon-x"></i></a>
+                                                        <a href="product-details.html#!?id={{ item.item_id }}"><i class="icon-x"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="mini_cart_table">
                                                 <div class="cart_table_border">
-                                                    <div class="cart_total">
-                                                        <span>Sub total:</span>
-                                                        <span class="price">$125.00</span>
-                                                    </div>
                                                     <div class="cart_total mt-10">
-                                                        <span>total:</span>
-                                                        <span class="price">$125.00</span>
+                                                        <span>Thanh toán:</span>
+                                                        <span class="price">{{thanhtoan}}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="mini_cart_footer">
                                                 <div class="cart_button">
-                                                    <a href="cart.html"><i class="fa fa-shopping-cart"></i> View
-                                                        cart</a>
+                                                    <a href="cart.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a>
                                                 </div>
                                                 <div class="cart_button">
-                                                    <a href="checkout.html"><i class="fa fa-sign-in"></i> Checkout</a>
+                                                    <a href="cart.html"><i class="fa fa-sign-in"></i> Thanh toán</a>
                                                 </div>
 
                                             </div>
@@ -170,19 +152,13 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
-                            <div class="categories_menu">
+                            <div class="categories_menu" ng-init="listGroup()">
                                 <div class="categories_title">
                                     <h2 class="categori_toggle">Danh sách danh mục</h2>
                                 </div>
                                 <div class="categories_menu_toggle">
                                     <ul>
-                                        <li><a href="#"> Fresh Meat</a></li>
-                                        <li><a href="#"> Butter & Eggs</a></li>
-                                        <li><a href="#">Milk</a></li>
-                                        <li><a href="#">Oil & Vinegars</a></li>
-                                        <li><a href="#"> Bread</a></li>
-                                        <li><a href="#"> Jam & Honey</a></li>
-                                        <li><a href="#"> Frozen Food</a></li>
+                                        <li ng-repeat="item in listGroup"><a href="shop.html#!?id={{ item.item_group_id }}"> {{item.item_group_name}}</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -271,24 +247,23 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section_title">
-                        <p>Danh mục Pizza</p>
                         <h2>Các sản phẩm Pizza</h2>
                     </div>
                 </div>
             </div>
-            <div class="product_container" ng-init="products()">
+            <div class="product_container" ng-init="pizzas()">
                 <div class="row">
-                    <div class="col-md-3" ng-repeat="item in listproducts">
+                    <div class="col-md-3" ng-repeat="item in listpizzas">
                         <article>
                             <figure>
                                 <div class="product_thumb">
-                                    <a class="primary_img" href="product-details.html"><img
+                                    <a class="primary_img" href="product-details.html#!?id={{ item.item_id }}"><img
                                             src="https://localhost:44374/{{item.item_image}}" alt=""></a>
                                 </div>
                                 <figcaption class="product_content">
-                                    <h4 class="product_name"><a href="product-details.html">{{item.item_name}}</a></h4>
+                                    <h4 class="product_name"><a href="product-details.html#!?id={{ item.item_id }}" >{{item.item_name}}</a></h4>
                                     <div class="price_box">
-                                        <span class="current_price">{{item.item_price}}</span>
+                                        <span class="current_price">{{item.item_price}} Đồng</span>
                                     </div>
                                 </figcaption>
                             </figure>
@@ -298,7 +273,68 @@
             </div>
         </div>
     </div>
-
+    <div class="product_area product_deals mb-65" style="margin-top:30px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section_title">
+                        <h2>Các sản phẩm Gà rán KFC</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="product_container" ng-init="kfcs()">
+                <div class="row">
+                    <div class="col-md-3" ng-repeat="item in listkfcs">
+                        <article>
+                            <figure>
+                                <div class="product_thumb">
+                                    <a class="primary_img" href="product-details.html#!?id={{ item.item_id }}"><img
+                                            src="https://localhost:44374/{{item.item_image}}" alt=""></a>
+                                </div>
+                                <figcaption class="product_content">
+                                    <h4 class="product_name"><a href="product-details.html#!?id={{ item.item_id }}">{{item.item_name}}</a></h4>
+                                    <div class="price_box">
+                                        <span class="current_price">{{item.item_price}} Đồng</span>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product_area product_deals mb-65" style="margin-top:30px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section_title">
+                        <h2>Các sản phẩm đồ uống</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="product_container" ng-init="drinks()">
+                <div class="row">
+                    <div class="col-md-3" ng-repeat="item in listdrinks">
+                        <article>
+                            <figure>
+                                <div class="product_thumb">
+                                    <a class="primary_img" href="product-details.html#!?id={{ item.item_id }}"><img
+                                            src="https://localhost:44374/{{item.item_image}}" alt=""></a>
+                                </div>
+                                <figcaption class="product_content">
+                                    <h4 class="product_name"><a href="product-details.html#!?id={{ item.item_id }}">{{item.item_name}}</a></h4>
+                                    <div class="price_box">
+                                        <span class="current_price">{{item.item_price}} Đồng</span>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="footer_widgets">
         <div class="footer_bottom">
             <div class="container">

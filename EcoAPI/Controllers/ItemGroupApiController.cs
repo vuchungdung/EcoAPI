@@ -25,6 +25,7 @@ namespace EcoAPI.Controllers
 
         [HttpGet]
         [Route("list")]
+        [AllowAnonymous]
         public IActionResult List()
         {
             string msgError = "";
