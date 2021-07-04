@@ -31,6 +31,7 @@ namespace EcoAPI.Controllers
         }
         [HttpPost]
         [Route("create")]
+        [AllowAnonymous]
         public IActionResult Create(HoaDonModel model)
         {
             string msgError = "";
@@ -165,15 +166,18 @@ namespace EcoAPI.Controllers
             try
             {
                 model.diachi = "";
-                model.hoten = "";
+                if(model.hoten == null)
+                {
+                    model.hoten = "";
+                }
                 var dt = _db.ExecuteSProcedureReturnDataTable(out msgError, "sp_hoa_don_search",
                     "@page_index", model.pageIndex,
                     "@page_size", model.pageSize,
-                    "@hoten", model.hoten,
-                    "@diachi", model.diachi);
+                    "@hoten", model.hoten);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                return Ok(dt.ConvertTo<HoaDonModel>().ToList());
+                var result = dt.ConvertTo<HoaDonModel>().ToList();
+                return Ok(result);
             }
             catch
             {
@@ -245,6 +249,36 @@ namespace EcoAPI.Controllers
                 document.SaveToFile(newFile, FileFormat.Docm2013);
                 var stream = System.IO.File.OpenRead(newFile);
                 return new FileStreamResult(stream, "application/doc");
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        [HttpPost]
+        [Route("statistic")]
+        public IActionResult Statisticl(DateTime date)
+        {
+            string msgError = "";
+            try
+            {
+
+                var dt = _db.ExecuteSProcedureReturnDataTable(out msgError, "sp_hoa_don_statistical",
+                    "@created_at", date.ToString("yyyy/MM/dd"));
+                var model = dt.ConvertTo<StatisticModel>().FirstOrDefault();
+                model.id = Guid.NewGuid().ToString();
+                var add = _db.ExecuteSProcedureReturnDataTable(out msgError, "sp_add_statistical",
+                    "@date", model.created_at,
+                    "@total_item", model.total_item,
+                    "@total", model.total,
+                    "@invest", model.invest,
+                    "@total_order", model.total_order,
+                    "@created_at", DateTime.Now,
+                    "@created_by", Guid.NewGuid().ToString(),
+                    "@id", Guid.NewGuid().ToString());
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return Ok();
             }
             catch
             {

@@ -27,7 +27,7 @@
                                 DANH SÁCH THỰC ĐƠN</h3>
                                 <div class="form-group">
                                     <label class="control-label">>> Chọn sản phẩm theo danh mục</label>
-                                    <select class="form-control" ng-model="item_group_id" onchange="angular.element(this).scope().getItemGroup()" style="width: 100%;" ng-init="listGroup()">
+                                    <select class="form-control" ng-model="item_group_id" ng-change="getItemGroup()" style="width: 100%;" ng-init="listGroup()">
                                         <option value="">Chọn danh mục sản phẩm</option>
                                         <option ng-repeat="a in listGroup" value="{{a.item_group_id}}">{{a.item_group_name}}</option>
                                     </select>

@@ -3,7 +3,7 @@
 
     orderEditController.$inject = ['$http', '$scope', '$state', '$stateParams'];
 
-    function orderEditController($http, $scope, $stateParams) {
+    function orderEditController($http, $scope, $stateParams, $state) {
         var user = JSON.parse(localStorage.getItem("user"));
 
         var current_url = "https://localhost:44374";
@@ -24,7 +24,8 @@
                 method: 'POST',
                 data: {
                     pageIndex: page,
-                    pageSize: $scope.pageSize_item
+                    pageSize: $scope.pageSize_item,
+                    item_group_id: $scope.item_group_id
                 },
                 headers: { "Authorization": 'Bearer ' + user.token },
                 url: current_url + '/api/Itemapi/search',
@@ -51,7 +52,6 @@
                 $scope.email = response.data.email;
                 $scope.phone = response.data.phone;
                 $scope.listItemLocal = response.data.listjson_chitiet;
-                console.log(response.data);
             });
         };
         $scope.Item();
@@ -142,7 +142,9 @@
                 $scope.listGroup = response.data;
             });
         }
-
+        $scope.getItemGroup = function(){
+            $scope.loadItem($scope.currentPage_item);
+        }
     }
 
 })(angular.module('Admin'));

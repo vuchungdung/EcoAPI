@@ -38,6 +38,10 @@ namespace EcoAPI
                             .AllowAnyMethod()
                             .AllowAnyHeader()
                             .AllowCredentials();
+                    builder.WithOrigins(Configuration["Client"])
+                           .AllowAnyMethod()
+                           .AllowAnyHeader()
+                           .AllowCredentials();
                 });
             });
             var appSettingsSection = Configuration.GetSection("AppSettings");

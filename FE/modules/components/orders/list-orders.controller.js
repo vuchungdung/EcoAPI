@@ -18,14 +18,12 @@
 
         $scope.hoten;
 
-        $scope.diachi;
-
         $scope.loadItem = function (page) {
             $scope.currentPage = page;
             $http({
                 method: 'POST',           
                 headers: { "Authorization": 'Bearer ' + user.token },
-                data: { pageIndex: page, pageSize: $scope.pageSize, hoten:$scope.hoten, diachi: $scope.diachi},
+                data: { pageIndex: page, pageSize: $scope.pageSize, hoten:$scope.keyword},
                 url: current_url + '/api/OrderApi/search',
             }).then(function (response) {
                 if(response.data.length > 0){
@@ -66,6 +64,19 @@
                 var blob = response.data; 
                 saveAs(blob, 'hoa-don.doc');
             })
+        }
+        $scope.output = function(date){
+            $http({
+                method: 'POST',           
+                headers: { "Authorization": 'Bearer ' + user.token },
+                data: date,
+                url: current_url + '/api/OrderApi/statistic',
+            }).then(function (response) {
+                console.log(response);
+            });
+        }
+        $scope.search = function(){
+            $scope.loadItem($scope.currentPage);
         }
     }
 

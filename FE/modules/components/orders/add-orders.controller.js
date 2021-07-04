@@ -3,7 +3,7 @@
 
     orderAddController.$inject = ['$http', '$scope', '$state'];
 
-    function orderAddController($http, $scope) {
+    function orderAddController($http, $scope, $state) {
         var user = JSON.parse(localStorage.getItem("user"));
 
         var current_url = "https://localhost:44374";
@@ -113,7 +113,7 @@
                 $scope.email = "";
                 $scope.phone = "";
                 $scope.listItemLocal = [];
-                $state.go('list_order')
+                $state.go('list_order');
                 alert('Thực hiện thành công');
             });
 

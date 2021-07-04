@@ -139,7 +139,7 @@
                                                     <div class="cart_info">
                                                         <a
                                                             href="product-details.html#!?id={{ item.item_id }}">{{item.item_name}}</a>
-                                                        <p>{{item.item_count}} x <span> {{item.item_price}} Đồng</span></p>
+                                                        <p>{{item.so_luong}} x <span> {{item.item_price}} Đồng</span></p>
                                                     </div>
                                                     <div class="cart_remove">
                                                         <a href="product-details.html#!?id={{ item.item_id }}"><i
@@ -259,7 +259,7 @@
                                     <td class="product_thumb"><a href="#"><img src="https://localhost:44374/{{item.item_image}}" alt=""></a></td>
                                     <td class="product_name"><a href="#">{{item.item_name}}</a></td>
                                     <td class="product-price">{{item.item_price}}</td>
-                                    <td class="product_quantity"><label>Số lượng</label> <input min="1" max="100" value="{{item.item_count}}" type="number"></td>
+                                    <td class="product_quantity"><label>Số lượng</label> <input min="1" max="100" value="{{item.so_luong}}" type="number"></td>
                                     <td class="product_total">{{item.totalpay}}</td>
                                 </tr>
 
@@ -267,7 +267,7 @@
                         </table>   
                             </div>  
                             <div class="cart_submit">
-                                <button type="submit">Cập nhật giỏ hàng</button>
+                                <button type="button" ng-click="update()">Cập nhật giỏ hàng</button>
                             </div>      
                         </div>
                      </div>
@@ -280,10 +280,10 @@
                                 <h3>Thông tin người mua</h3>
                                 <div class="coupon_inner">   
                                     <p>Vui lòng nhập đúng thông tin người nhận.</p>                                
-                                    <input style="width: 100%; margin-bottom: 10px;" placeholder="Họ và tên" type="text">
-                                    <input style="width: 100%; margin-bottom: 10px;" placeholder="Địa chỉ nhận hàng" type="text">
-                                    <input style="width: 100%; margin-bottom: 10px;" placeholder="Email" type="text">
-                                    <input style="width: 100%; margin-bottom: 10px;" placeholder="Số điện thoại" type="text">
+                                    <input style="width: 100%; margin-bottom: 10px;" ng-model="ho_ten" placeholder="Họ và tên" type="text">
+                                    <input style="width: 100%; margin-bottom: 10px;" ng-model="dia_chi" placeholder="Địa chỉ nhận hàng" type="text">
+                                    <input style="width: 100%; margin-bottom: 10px;" ng-model="email" placeholder="Email" type="text">
+                                    <input style="width: 100%; margin-bottom: 10px;" ng-model="phone" placeholder="Số điện thoại" type="text">
                                 </div>    
                             </div>
                         </div>
@@ -297,7 +297,7 @@
                                    </div>
                                 </div>
                                    <div class="checkout_btn">
-                                       <a href="#">Gửi đơn hàng</a>
+                                       <a ng-click="saveCart()">Gửi đơn hàng</a>
                                    </div>
                                 </div>
                             </div>

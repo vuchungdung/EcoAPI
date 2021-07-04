@@ -1,5 +1,5 @@
 var app = angular.module('Client', []);
-app.controller("homeController", function ($scope, $http,$location) {
+app.controller("homeController", function ($scope, $http, $location) {
     var current_url = "https://localhost:44374";
 
     $scope.drinks = function () {
@@ -39,12 +39,12 @@ app.controller("homeController", function ($scope, $http,$location) {
             $scope.listGroup = response.data;
         });
     }
-    $scope.getDetail = function(){
+    $scope.getDetail = function () {
         var id = $location.search().id;
         $http({
             method: 'GET',
             data: {},
-            url: current_url + '/api/Itemapi/item/'+id,
+            url: current_url + '/api/Itemapi/item/' + id,
         }).then(function (response) {
             $scope.Item = response.data;
         });
@@ -53,7 +53,7 @@ app.controller("homeController", function ($scope, $http,$location) {
     $scope.getDetail();
     $scope.listProducts = function () {
         var id = $location.search().id;
-        if(id == null){
+        if (id == null) {
             $http({
                 method: 'GET',
                 data: null,
@@ -61,57 +61,85 @@ app.controller("homeController", function ($scope, $http,$location) {
             }).then(function (response) {
                 $scope.listProducts = response.data;
             });
-        }
-        else{
+        } else {
             $http({
                 method: 'GET',
                 data: null,
-                url: current_url + '/api/itemapi/item_group/'+id,
+                url: current_url + '/api/itemapi/item_group/' + id,
             }).then(function (response) {
                 $scope.listProducts = response.data;
             });
         }
     };
     $scope.listProducts();
-    if(JSON.parse(localStorage.getItem("cart")) == null){
+    if (JSON.parse(localStorage.getItem("cart")) == null) {
         $scope.listCart = [];
         $scope.thanhtoan = 0;
-    }
-    else{
+    } else {
         $scope.listCart = JSON.parse(localStorage.getItem("cart"));
         $scope.thanhtoan = 0;
-        $scope.listCart.forEach(ele=>{
+        $scope.listCart.forEach(ele => {
             $scope.thanhtoan = $scope.thanhtoan + ele.totalpay;
         })
     }
     $scope.item_count = 0;
-    $scope.addCart = function(){
+    $scope.addCart = function () {
         var id = $location.search().id;
         const item = {};
         var i = 0;
         $http({
             method: 'GET',
             data: {},
-            url: current_url + '/api/Itemapi/item/'+id,
+            url: current_url + '/api/Itemapi/item/' + id,
         }).then(function (response) {
             item.item_id = response.data.item_id
             item.item_name = response.data.item_name;
             item.item_price = response.data.item_price;
+            item.item_invest = response.data.item_invest * $scope.item_count;
             item.item_image = response.data.item_image;
-            item.item_count = $scope.item_count;
-            item.totalpay = $scope.item_count*item.item_price;
+            item.so_luong = $scope.item_count;
+            item.totalpay = $scope.item_count * item.item_price;
             $scope.listCart.forEach(element => {
-                if(element.item_id == item.item_id){
+                if (element.item_id == item.item_id) {
                     i = 1;
-                    element.item_count = element.item_count + item.item_count;
-                    element.totalpay = element.item_count*item.item_price;
+                    element.so_luong = element.so_luong + item.so_luong;
+                    element.totalpay = element.so_luong * item.item_price;
+                    element.invest = element.so_luong * item.item_invest;
                 }
             });
-            if(i != 1){
+            if (i != 1) {
                 $scope.listCart.push(item)
             }
-            localStorage.setItem("cart",JSON.stringify($scope.listCart));
-        });              
+            localStorage.setItem("cart", JSON.stringify($scope.listCart));
+        });
         alert("Đã thêm vào giỏ hàng!");
+    }
+    $scope.update = function () {
+
+    }
+
+    $scope.saveCart = function () {
+        item = {};
+        item.ho_ten = $scope.ho_ten;
+        item.dia_chi = $scope.dia_chi;
+        item.email = $scope.email;
+        item.phone = $scope.phone;
+        item.total = 0;
+        item.invest = 0;
+        item.total_item = 0;
+        $scope.listCart.forEach(function (i) {
+            item.total = item.total + i.totalpay;
+            item.total_item = item.total_item + i.so_luong;
+            item.invest = item.invest + i.item_invest;
+        })
+        item.listjson_chitiet = $scope.listCart;
+        $http({
+            method: 'POST',
+            data: item,
+            url: current_url + '/api/Orderapi/create',
+        }).then(function (response) {
+            localStorage.clear();
+            alert('Thực hiện thành công');
+        });
     }
 });
