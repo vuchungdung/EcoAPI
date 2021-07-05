@@ -140,6 +140,7 @@ app.controller("homeController", function ($scope, $http, $location) {
         }).then(function (response) {
             localStorage.clear();
             alert('Thực hiện thành công');
+            window.location.reload();
         });
     }
 });

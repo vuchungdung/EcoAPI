@@ -126,7 +126,6 @@
                 $scope.email = "";
                 $scope.phone = "";
                 $scope.listItemLocal = [];
-                $state.go('list_order');
                 alert('Thực hiện thành công');
             });
 
